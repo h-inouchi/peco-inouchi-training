@@ -2,6 +2,11 @@
  
 <ul>
 <?php foreach ($posts as $post) : ?>
-<li></li>
+<li>
+<?php
+// debug($post);
+echo h($post['Post']['title']);
+?>
+</li>
 <?php endforeach; ?>
 </ul>
