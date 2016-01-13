@@ -2,7 +2,7 @@
 
 <ul>
 <?php foreach ($posts as $post) : ?>
-<li>
+<li id="post_<?php echo h($post['Post']['id']); ?>">
 <?php
 // debug($post);
 // echo h($post['Post']['title']);
@@ -19,6 +19,7 @@ echo $this->Html->link($post['Post']['title'],'/posts/view/'.$post['Post']['id']
 
 <h2>Add Post</h2>
 <?php echo $this->Html->link('Add post', array('controller'=>'posts','action'=>'add'));
+?>
 
 <script>
 $(function() {
