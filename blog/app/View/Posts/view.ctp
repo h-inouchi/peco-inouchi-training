@@ -5,7 +5,7 @@
 <h2>Comments</h2>
 
 <ul>
-<?php foreach (): ?>
-<li></li>
-<?php endforeach (); ?>
+<?php foreach ($post['Comment'] as $comment): ?>
+<li><?php echo h($comment['body']) ?> by <?php echo h($comment['commenter']); ?></li>
+<?php endforeach ; ?>
 </ul>
