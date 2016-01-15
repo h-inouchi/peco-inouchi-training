@@ -14,6 +14,7 @@
 
 <?php
 echo $this->Form->create('Comment',array('action'=>'add'));
-echo $this->Form->create('commenter');
-echo $this->Form->create('body',array('rows'=>3));
-echo $this->Form->create('Comment.post_id',array('type'=>'hidden','value'=>$post['Post']['id']));
+echo $this->Form->input('commenter');
+echo $this->Form->input('body',array('rows'=>3));
+echo $this->Form->input('Comment.post_id',array('type'=>'hidden','value'=>$post['Post']['id']));
+echo $this->Form->end('post comment');
