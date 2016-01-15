@@ -7,7 +7,7 @@
 <ul>
 <?php foreach ($post['Comment'] as $comment): ?>
 <li id="comment_<?php echo h($comment['id']); ?>">
-<?php echo h($comment['body']) ?> by <?php echo h($comment['commenter']); ?>
+<?php echo h($comment['body']) ?> by <?php echo h($comment['commenter']); ?> 
 <?php
     echo $this->Html->link('削除', '#', array('class'=>'delete', 'data-comment-id'=>$comment['id']));
 ?>
