@@ -7,13 +7,13 @@ class CommentsController extends AppController {
         if ($this->request->is('post')) {
             if ($this->Post->save($this->request->data)) {
                 $this->Session->setFlash('Success!');
-                $this->redirect(array('action'=>'index'));
+                $this->redirect(array('controller'=>'posts','action'=>'view',$this->data['Comment']['post_id']));
             } else {
                 $this->Session->setFlash('failed!');
             }
         }
     }
-
+/*
     public function delete($id) {
         if ($this->request->is('get')) {
             throw new MethodNotAllowedException();
@@ -31,5 +31,6 @@ class CommentsController extends AppController {
         }
         $this->redirect(array('action'=>'index'));
     }
+*/
 }
 
