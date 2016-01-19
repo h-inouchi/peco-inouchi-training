@@ -31,4 +31,43 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+
+	//...
+    public $components = array(
+        'Session',
+        'Auth' => array(
+            'loginRedirect' => array('controller' => 'posts','action' => 'index'),
+            'logoutRedirect' => array('controller' => 'users','action' => 'login'),
+            //'unauthorizedRedirect' => array('controller' => 'posts','action' => 'index'),
+            'unauthorizedRedirect' => false,
+            'ajaxLogin' => '/elements/ajaxLoginElement',
+            'authenticate' => array(
+                'Form' => array(
+                    'passwordHasher' => 'Blowfish'
+                )
+            ),
+            'authorize' => array('Controller') // この行を追加しました
+        )
+    );
+
+    public function beforeFilter() {
+        $this->Auth->allow('index', 'view');
+        $this->Auth->authError = "このエラーは保護されたウェブサイトの一部に" .
+                           "ユーザがアクセスしようとした際に表示されます。";
+        if (!$this->Auth->loggedIn()) {
+            $this->Auth->authError = false;
+        }
+    }
+
+    public function isAuthorized($user) {
+        // Admin can access every action
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
+
+        // デフォルトは拒否
+        return false;
+    }
+    //...
+
 }
