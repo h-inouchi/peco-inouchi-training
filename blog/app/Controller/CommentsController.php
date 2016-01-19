@@ -23,16 +23,10 @@ class CommentsController extends AppController {
             
         }
 
-        if ($this->request->is('ajax')) {
-            if ($this->Comment->delete($id)) {
-                $this->autoRender = false;
-                $this->autoLayout = false;
-                $response = array('id' => $id);
-                $this->header('Content-Type: application/json');
-                echo json_encode($response);
-                exit();
-            }
+        if ($this->Comment->delete($id)) {
+           $this->Session->setFlash('success!');
         }
+
         $this->redirect(array('controller'=>'posts','action'=>'index'));
     }
     
