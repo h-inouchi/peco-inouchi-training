@@ -5,6 +5,9 @@ class CommentsController extends AppController {
 
     public function add() {
         if ($this->request->is('post')) {
+            //Added this line
+            $this->request->data['Comment']['user_id'] = $this->Auth->user('id');
+
             if ($this->Comment->save($this->request->data)) {
                 $this->Session->setFlash('Success!');
                 $this->redirect(array('controller'=>'posts','action'=>'view',$this->data['Comment']['post_id']));
@@ -19,6 +22,7 @@ class CommentsController extends AppController {
             throw new MethodNotAllowedException();
             
         }
+
         if ($this->request->is('ajax')) {
             if ($this->Comment->delete($id)) {
                 $this->autoRender = false;
@@ -30,6 +34,24 @@ class CommentsController extends AppController {
             }
         }
         $this->redirect(array('controller'=>'posts','action'=>'index'));
+    }
+    
+    public function isAuthorized($user) {
+        // 登録済ユーザーは投稿できる
+        if ($this->action === 'add') {
+            return true;
+        }
+
+        // 投稿のオーナーは編集や削除ができる
+        if (in_array($this->action, array('edit', 'delete'))) {
+            
+            $commentId = (int) $this->request->params['pass'][0];
+            if ($this->Comment->isOwnedBy($commentId, $user['id'])) {
+                return true;
+            }
+        }
+
+        return parent::isAuthorized($user);
     }
 
 }
