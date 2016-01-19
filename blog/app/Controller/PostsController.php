@@ -46,15 +46,8 @@ class PostsController extends AppController {
             throw new MethodNotAllowedException();
             
         }
-        if ($this->request->is('ajax')) {
-            if ($this->Post->delete($id)) {
-                $this->autoRender = false;
-                $this->autoLayout = false;
-                $response = array('id' => $id);
-                $this->header('Content-Type: application/json');
-                echo json_encode($response);
-                exit();
-            }
+        if ($this->Post->delete($id)) {
+            $this->Session->setFlash('success!');
         }
         $this->redirect(array('action'=>'index'));
     }

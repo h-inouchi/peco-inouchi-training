@@ -9,7 +9,7 @@
 <li id="comment_<?php echo h($comment['id']); ?>">
 <?php echo h($comment['body']) ?> by <?php echo h($comment['commenter']); ?> 
 <?php
-    echo $this->Html->link('削除', '#', array('class'=>'delete', 'data-comment-id'=>$comment['id']));
+    echo $this->Form->postLink('削除', array('controller'=>'comments','action'=>'delete', $comment['id']), array('confirm'=>'sure?'));
 ?>
 </li>
 <?php endforeach ; ?>
@@ -25,15 +25,3 @@ echo $this->Form->input('Comment.post_id',array('type'=>'hidden','value'=>$post[
 echo $this->Form->end('post comment');
 ?>
 
-<script>
-$(function() {
-    $('a.delete').click(function(e) {
-        if (confirm('sure?')) {
-            $.post('/blog/comments/delete/'+$(this).data('comment-id'), {}, function(res) {
-                $('#comment_'+res.id).fadeOut();
-            }, "json");
-        }
-        return false;
-    });
-});
-</script>

@@ -40,7 +40,6 @@ class AppController extends Controller {
             'logoutRedirect' => array('controller' => 'users','action' => 'login'),
             //'unauthorizedRedirect' => array('controller' => 'posts','action' => 'index'),
             'unauthorizedRedirect' => false,
-            'ajaxLogin' => '/elements/ajaxLoginElement',
             'authenticate' => array(
                 'Form' => array(
                     'passwordHasher' => 'Blowfish'
