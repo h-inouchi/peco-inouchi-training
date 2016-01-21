@@ -50,6 +50,8 @@ class AppController extends Controller {
     );
 
     public function beforeFilter() {
+        // 認証コンポーネントをViewで利用可能にしておく
+        $this->set('auth',$this->Auth);
         $this->Auth->allow('index', 'view');
         $this->Auth->authError = "このエラーは保護されたウェブサイトの一部に" .
                            "ユーザがアクセスしようとした際に表示されます。";
