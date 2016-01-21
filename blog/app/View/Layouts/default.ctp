@@ -44,13 +44,24 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			    {
 			    	echo 'こんにちは、';
 			    	echo $auth->user('username');
-			    	echo ' さん。   ';
+			    	echo '　さん。　';
 			        echo $this->Html->link('ログアウト', '/users/logout/');
 			    }else{
 			        echo $this->Html->link('ログイン', '/users/login/');
 			    }
 			?></h1>
-
+			<fieldset>
+			<legend><?php if($auth->loggedIn()){ echo 'メニュー'; }?></legend>
+			<?php
+			if($auth->loggedIn()){
+				echo $this->Html->link('ユーザ一覧', array('controller'=>'users','action'=>'index'));
+				echo '　　';
+				echo $this->Html->link('フォローユーザ一覧', array('controller'=>'followUsers','action'=>'index',$auth->user('id')));
+				echo '　　';
+				echo $this->Html->link('フォローユーザの記事一覧', '/');
+			}
+			?>
+			</fieldset>
 		</div>
 		<div id="content">
 

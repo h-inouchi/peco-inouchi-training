@@ -44,4 +44,12 @@ class UsersController extends AppController {
         }
     }
 
+    public function index() {
+        $this->set('users', $this->User->find('all'));
+        $this->set('title_for_layout', 'ユーザ一覧');
+    }
+    public function view($id = null) {
+        $this->User->id = $id;
+        $this->set('user', $this->User->read());
+    }
 }
