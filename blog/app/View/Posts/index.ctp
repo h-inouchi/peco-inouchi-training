@@ -21,8 +21,8 @@ echo $this->Html->link($post['Post']['title'],'/posts/view/'.$post['Post']['id']
 <?php endforeach; ?>
 </ul>
 
-<h2>Add Post</h2>
-<?php echo $this->Html->link('Add post', array('controller'=>'posts','action'=>'add'));
+<h2>新規記事の投稿</h2>
+<?php echo $this->Html->link('新規記事の投稿', array('controller'=>'posts','action'=>'add'));
 ?>
 
 
