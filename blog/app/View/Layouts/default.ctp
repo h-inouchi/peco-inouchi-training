@@ -39,7 +39,18 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	<div id="container">
 		<div id="header">
 			<h1><?php echo $this->Html->link('Home', '/'); ?></h1>
-			<h1><?php echo $this->Html->link('LogOut', '/users/logout'); ?></h1>
+			<h1><?php
+			    if($auth->loggedIn())
+			    {
+			    	echo 'こんにちは、';
+			    	echo $auth->user('username');
+			    	echo ' さん。   ';
+			        echo $this->Html->link('ログアウト', '/users/logout/');
+			    }else{
+			        echo $this->Html->link('ログイン', '/users/login/');
+			    }
+			?></h1>
+
 		</div>
 		<div id="content">
 
