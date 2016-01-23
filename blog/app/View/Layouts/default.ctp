@@ -38,7 +38,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link('Home', '/'); ?></h1>
 			<h1><?php
 			    if($auth->loggedIn())
 			    {
@@ -54,6 +53,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			<legend><?php if($auth->loggedIn()){ echo 'メニュー'; }?></legend>
 			<?php
 			if($auth->loggedIn()){
+				echo $this->Html->link('記事一覧', '/');
+				echo '　　';
 				echo $this->Html->link('ユーザ一覧', array('controller'=>'users','action'=>'index'));
 				echo '　　';
 				echo $this->Html->link('フォローユーザ一覧', array('controller'=>'followUsers','action'=>'index'));
