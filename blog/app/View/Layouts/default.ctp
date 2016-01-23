@@ -56,9 +56,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			if($auth->loggedIn()){
 				echo $this->Html->link('ユーザ一覧', array('controller'=>'users','action'=>'index'));
 				echo '　　';
-				echo $this->Html->link('フォローユーザ一覧', array('controller'=>'followUsers','action'=>'index',$auth->user('id')));
+				echo $this->Html->link('フォローユーザ一覧', array('controller'=>'followUsers','action'=>'index'));
 				echo '　　';
-				echo $this->Html->link('フォローユーザの記事一覧', '/');
+				echo $this->Html->link('フォローユーザの記事一覧', array('controller'=>'posts','action'=>'followPostIndex'));
 			}
 			?>
 			</fieldset>
