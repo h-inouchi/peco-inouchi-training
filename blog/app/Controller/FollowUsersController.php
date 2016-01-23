@@ -17,12 +17,12 @@ class FollowUsersController extends AppController {
         }
     }
 
-    public function index($id = null) {
+    public function index() {
         //$this->FollowUser->userId = $id;
         //$this->set('followUsers', $this->FollowUser->find('all'));
 
         $this->set('followUsers', $this->FollowUser->find('all',
-            array('conditions' => array('user_id' => $id))));
+            array('conditions' => array('user_id' => $this->Auth->user('id')))));
 
     }
 

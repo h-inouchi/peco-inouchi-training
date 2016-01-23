@@ -8,6 +8,13 @@ class PostsController extends AppController {
         $this->set('title_for_layout', '記事一覧');
     }
 
+    public function followPostIndex() {
+        $data = $this->Post->getData($this->Auth->user('id'));
+        $this->set('posts', $data);
+
+        $this->set('title_for_layout', 'フォローユーザの記事一覧');
+    }
+
     public function view($id = null) {
     	$this->Post->id = $id;
     	$this->set('post', $this->Post->read());
@@ -62,6 +69,13 @@ class PostsController extends AppController {
         if (in_array($this->action, array('edit', 'delete'))) {
             $postId = (int) $this->request->params['pass'][0];
             if ($this->Post->isOwnedBy($postId, $user['id'])) {
+                return true;
+            }
+        }
+
+        // ログインしていればフォローできる、フォローユーザ記事一覧を表示できる
+        if ($this->Auth->loggedIn()) {
+            if ($this->action === 'followPostIndex') {
                 return true;
             }
         }
