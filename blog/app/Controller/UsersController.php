@@ -49,7 +49,11 @@ class UsersController extends AppController {
         $this->set('title_for_layout', 'ユーザ一覧');
     }
     public function view($id = null) {
-        $this->User->id = $id;
-        $this->set('user', $this->User->read());
+        $data = $this->User->getFriendStateStatus(
+                                    $this->Auth->user('id'),
+                                    $id);
+        $this->set('user', $data);
+        $this->set('title_for_layout', 'ユーザプロフィール');
+
     }
 }

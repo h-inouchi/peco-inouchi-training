@@ -13,7 +13,7 @@ echo $this->Html->link($post['Post']['title'],'/posts/view/'.$post['Post']['id']
 <?php
     echo $this->Form->postLink('削除', array('action'=>'delete', $post['Post']['id']), array('confirm'=>'sure?'));
 ?>
--> この記事の作成者：
+　　　-> この記事の作成者：
 <?php
     echo $this->Html->link($post['User']['username'],'/users/view/'.$post['User']['id']);
 ?>

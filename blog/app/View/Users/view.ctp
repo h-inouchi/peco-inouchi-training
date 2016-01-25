@@ -1,5 +1,16 @@
-<h2><?php echo h($user['User']['username']); ?> のプロフィール</h2>
+<h2><?php echo h($user[0]['User']['username']); ?> のプロフィール</h2>
 
 <?php
-    echo $this->Form->postLink('フォロー', array('controller'=>'followUsers','action'=>'add', $user['User']['id']), array('confirm'=>'フォローしますか?'));
+	$state_status = Configure::read("friend_state_status");
+    if((int)$user[0]['FriendState']['status'] === $state_status["WAITING"])
+    {
+    	echo '現在、フレンド申請中です。';
+    } else if($user[0]['FriendState']['status'] === $state_status["REJECTED"]) {
+    	echo 'フレンド申請が却下されました。';
+    	echo $this->Form->postLink('再度、フレンド申請する', array('controller'=>'friendStates','action'=>'add', $user[0]['User']['id']), array('confirm'=>'フレンド申請しますか？'));
+    } else if($user[0]['FriendState']['status'] === $state_status["APPROVED"]) {
+        echo 'フレンド承認済';
+    } else {
+    	echo $this->Form->postLink('フレンド申請', array('controller'=>'friendStates','action'=>'add', $user[0]['User']['id']), array('confirm'=>'フレンド申請しますか？'));
+    }
 ?>

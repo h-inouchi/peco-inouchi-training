@@ -38,4 +38,26 @@ class User extends AppModel {
         return true;
     }
 
+    public function getFriendStateStatus($loginUserId, $friendUserId){
+        $sql = "SELECT
+                    `User`.*,
+                    `FriendState`.*
+                FROM
+                    `users` AS `User`
+                LEFT JOIN
+                    `friend_states` AS `FriendState`
+                ON (`User`.`id` = `FriendState`.`user_id`)
+                AND (:friendUserId = `FriendState`.`friend_user_id`)
+                WHERE
+                    `User`.`id` = :userId;";
+
+        $params = array(
+            'userId'=> $loginUserId,
+            'friendUserId'=> $friendUserId
+        );
+ 
+        $data = $this->query($sql,$params);
+        return $data;
+    }
+
 }
