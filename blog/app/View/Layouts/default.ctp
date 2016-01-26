@@ -60,6 +60,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				echo $this->Html->link('フレンド一覧', array('controller'=>'friendStates','action'=>'index'));
 				echo '　　';
 				echo $this->Html->link('フレンドの記事一覧', array('controller'=>'posts','action'=>'friendPostIndex'));
+				echo '　　';
+				echo $this->Html->link('自分へのフレンド承認依頼一覧', array('controller'=>'friendStates','action'=>'friendStateIndex'));
 			}
 			?>
 			</fieldset>
