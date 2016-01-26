@@ -5,7 +5,7 @@
 <li id="user_<?php echo h($user['User']['id']); ?>">
 <?php
 //debug($user);
-echo $this->Html->link($user['User']['username'],'/users/view/'.$user['User']['id']);
+echo $this->Form->postLink($user['User']['username'],array('controller'=>'users','action'=>'profile', $user['User']['id']));
 ?> 
 </li>
 <?php endforeach; ?>

@@ -1,4 +1,4 @@
-<h2><?php echo h($user[0]['User']['username']); ?> のプロフィール</h2>
+<h2><?php echo h($user[0]['FriendUser']['username']); ?> のプロフィール</h2>
 
 <?php
 	$state_status = Configure::read("friend_state_status");

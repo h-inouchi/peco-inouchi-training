@@ -48,12 +48,23 @@ class UsersController extends AppController {
         $this->set('users', $this->User->find('all'));
         $this->set('title_for_layout', 'ユーザ一覧');
     }
-    public function view($id = null) {
+    public function profile($id = null) {
         $data = $this->User->getFriendStateStatus(
                                     $this->Auth->user('id'),
                                     $id);
         $this->set('user', $data);
         $this->set('title_for_layout', 'ユーザプロフィール');
 
+    }
+
+    public function isAuthorized($user) {
+        // ログインしていれば
+        if ($this->Auth->loggedIn()) {
+            if (in_array($this->action, array('profile'))) {
+                return true;
+            }
+        }
+
+        return parent::isAuthorized($user);
     }
 }
