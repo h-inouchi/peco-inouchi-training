@@ -5,9 +5,9 @@
 <?php
 echo $friendState['FriendUser']['username'];
 echo 'さんからの承認依頼　';
-echo $this->Form->postLink('承認',array('controller'=>'friendStates','action'=>'approve', $friendState['FriendUser']['id']));
+echo $this->Form->postLink('承認',array('controller'=>'friendStates','action'=>'approve', $friendState['FriendUser']['id']),array('confirm'=>'フレンド申請を承認しますか？'));
 echo '　';
-echo $this->Form->postLink('却下',array('controller'=>'friendStates','action'=>'reject', $friendState['FriendUser']['id']));
+echo $this->Form->postLink('却下',array('controller'=>'friendStates','action'=>'reject', $friendState['FriendUser']['id']),array('confirm'=>'フレンド申請を却下しますか？'));
 ?> 
 </li>
 <?php endforeach; ?>

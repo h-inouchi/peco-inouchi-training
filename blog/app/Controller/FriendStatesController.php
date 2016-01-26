@@ -33,24 +33,10 @@ class FriendStatesController extends AppController {
 
     public function approve($id = null) {
 
-        $friendState = $this->FriendState->find(
-            'all',
-            array(
-                'conditions' => array(
-                    'user_id' => $id,
-                    'friend_user_id' => $this->Auth->user('id')
-                )
-            )
-        );
-
         if ($this->request->is('post')) {
-            $state_status = Configure::read("friend_state_status");
-            $this->request->data['FriendState']['id'] = $friendState[0]['FriendState']['id'];
-            $this->request->data['FriendState']['status'] = $state_status["APPROVED"];
-
-            if ($this->FriendState->save($this->request->data)) {
+            if ($this->FriendState->updateFriendStateApproved($this->Auth->user('id'), $id)) {
                 $this->Session->setFlash('Success!');
-                $this->redirect(array('controller'=>'users','action'=>'index'));
+                $this->redirect(array('controller'=>'friendStates','action'=>'index'));
             } else {
                 $this->Session->setFlash('failed!');
             }
@@ -75,7 +61,7 @@ class FriendStatesController extends AppController {
 
             if ($this->FriendState->save($this->request->data)) {
                 $this->Session->setFlash('Success!');
-                $this->redirect(array('controller'=>'users','action'=>'index'));
+                $this->redirect(array('controller'=>'friendStates','action'=>'index'));
             } else {
                 $this->Session->setFlash('failed!');
             }

@@ -50,5 +50,72 @@ class FriendState extends AppModel {
         $data = $this->query($sql,$params);
         return $data;
     }
+
+    public function updateFriendStateApproved($loginUserId = null, $frienUserId = null){
+        $state_status = Configure::read("friend_state_status");
+        $datasource = $this->getDataSource();
+        try{
+            $datasource->begin();
+
+            // １件目　通常承認のレコードを UPDATE
+            $friendState = $this->find(
+                'all',
+                array(
+                    'conditions' => array(
+                        'user_id' => $frienUserId,
+                        'friend_user_id' => $loginUserId
+                    )
+                )
+            );
+
+            $data = array(
+                'FriendState' => array(
+                    'id' => $friendState[0]['FriendState']['id'],
+                    'status' => $state_status["APPROVED"]
+                ));
+
+            if ($this->save($data)) {
+            } else {
+                throw new Exception();
+            }
+
+            // ２件目　逆方向の承認レコード作成
+            $friendState = $this->find(
+                'all',
+                array(
+                    'conditions' => array(
+                        'user_id' => $loginUserId,
+                        'friend_user_id' => $frienUserId
+                    )
+                )
+            );
+
+            if(empty($friendState)){
+                $friendStateId = null;
+            } else {
+                $friendStateId = $friendState[0]['FriendState']['id'];                
+            }
+
+            $data = array(
+                'FriendState' => array(
+                    'id' => $friendStateId,
+                    'user_id' => $loginUserId,
+                    'friend_user_id' => $frienUserId,
+                    'status' => $state_status["APPROVED"]
+                ));
+
+            if ($this->save($data)) {
+            } else {
+                throw new Exception();
+            }
+
+            $datasource->commit();
+
+            return true;
+            
+        } catch(Exception $e) {
+            $datasource->rollback();
+        }
+    }
     
 }
