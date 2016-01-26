@@ -5,7 +5,7 @@
 <li id="followUser_<?php echo h($followUser['FollowUser']['id']); ?>">
 <?php
 //debug($followUser);
-echo $this->Html->link($followUser['User']['username'],'/users/view/'.$followUser['User']['id']);
+echo $this->Form->postLink($followUser['User']['username'],array('controller'=>'users','action'=>'profile', $followUser['User']['id']));
 ?> 
 </li>
 <?php endforeach; ?>
