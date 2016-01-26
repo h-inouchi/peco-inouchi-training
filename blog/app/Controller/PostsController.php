@@ -9,12 +9,18 @@ class PostsController extends AppController {
     }
 
     public function followPostIndex() {
-        $data = $this->Post->getData($this->Auth->user('id'));
+        $data = $this->Post->getFollowUserPosts($this->Auth->user('id'));
         $this->set('posts', $data);
 
         $this->set('title_for_layout', 'フォローユーザの記事一覧');
     }
+    
+    public function friendPostIndex() {
+        $data = $this->Post->getfriendPosts($this->Auth->user('id'));
+        $this->set('posts', $data);
 
+        $this->set('title_for_layout', 'フレンドの記事一覧');
+    }
     public function view($id = null) {
     	$this->Post->id = $id;
     	$this->set('post', $this->Post->read());
@@ -73,9 +79,9 @@ class PostsController extends AppController {
             }
         }
 
-        // ログインしていればフォローできる、フォローユーザ記事一覧を表示できる
+        // ログインしていれば
         if ($this->Auth->loggedIn()) {
-            if ($this->action === 'followPostIndex') {
+            if (in_array($this->action, array('followPostIndex', 'friendPostIndex'))) {
                 return true;
             }
         }

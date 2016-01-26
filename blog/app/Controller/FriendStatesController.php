@@ -32,11 +32,11 @@ class FriendStatesController extends AppController {
     }
 
     public function index() {
-        //$this->FollowUser->userId = $id;
-        //$this->set('followUsers', $this->FollowUser->find('all'));
-
-        $this->set('followUsers', $this->FollowUser->find('all',
-            array('conditions' => array('user_id' => $this->Auth->user('id')))));
+        $data = $this->FriendState->getFriends(
+                                        $this->Auth->user('id')
+                                        );
+        $this->set('friends', $data);
+        $this->set('title_for_layout', 'フレンド一覧');
 
     }
 

@@ -4,7 +4,7 @@ class Post extends AppModel {
 	public $hasMany = "Comment";
 	public $belongsTo = "User";
 	
-	public function getData($id){
+	public function getFollowUserPosts($id){
 		$sql = "SELECT
 					`Post`.*,
 					`User`.*
@@ -23,6 +23,34 @@ class Post extends AppModel {
 
         $params = array(
             'id'=> $id
+        );
+ 
+        $data = $this->query($sql,$params);
+        return $data;
+    }
+
+	public function getFriendPosts($id){
+		$state_status = Configure::read("friend_state_status");
+		$sql = "SELECT
+					`Post`.*,
+					`User`.*
+				FROM
+					`posts` AS `Post`
+				LEFT JOIN
+					`users` AS `User`
+				ON (`Post`.`user_id` = `User`.`id`)
+				WHERE
+					EXISTS (SELECT *
+							FROM
+								`friend_states` AS `FriendState`
+							WHERE
+								`Post`.`user_id` = `FriendState`.`friend_user_id`
+							AND `FriendState`.`user_id` = :loginUserId
+							AND `FriendState`.`status` = :status);";
+
+        $params = array(
+            'loginUserId'=> $id,
+            'status'=> $state_status["APPROVED"]
         );
  
         $data = $this->query($sql,$params);

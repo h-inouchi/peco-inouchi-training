@@ -42,7 +42,7 @@ class User extends AppModel {
         $sql = "SELECT
                     `User`.*,
                     `FriendState`.*,
-                    `FriendUser`.`username`
+                    `FriendUser`.*
                 FROM
                     `users` AS `User`
                 LEFT JOIN
